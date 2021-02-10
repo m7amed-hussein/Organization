@@ -36,6 +36,21 @@ namespace newProject.Controllers
         {
             return View();
         }
+
+        [AcceptVerbs("Get","Post")]
+        [AllowAnonymous]
+        public async Task<IActionResult> IsEmail(string Email)
+        {
+             var user = await userManager.FindByEmailAsync(Email);
+            if(user == null)
+            {
+                return Json(true);
+            }
+            else
+            {
+                return Json($"{Email} already registered");
+            }
+        }
         [HttpPost]
         [AllowAnonymous]
         public async Task<IActionResult> Register(RegisterViewModel model)
