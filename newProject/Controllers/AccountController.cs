@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using newProject.Models;
@@ -22,6 +23,7 @@ namespace newProject.Controllers
             this.signInManager = signInManager;
         }
         [HttpPost]
+        [AllowAnonymous]
         public async Task<IActionResult> logout()
         {
             await signInManager.SignOutAsync();
@@ -29,11 +31,13 @@ namespace newProject.Controllers
         }
         // GET: /<controller>/
         [HttpGet]
+        [AllowAnonymous]
         public IActionResult Register()
         {
             return View();
         }
         [HttpPost]
+        [AllowAnonymous]
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
             if (ModelState.IsValid)
@@ -60,12 +64,14 @@ namespace newProject.Controllers
         
         // GET: /<controller>/
         [HttpGet]
+        [AllowAnonymous]
         public IActionResult Login()
         {
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> Login(LoginViewModel model)
+        [AllowAnonymous]
+        public async Task<IActionResult> Login(LoginViewModel model,string returnUrl)
         {
             if (ModelState.IsValid)
             {
@@ -73,6 +79,9 @@ namespace newProject.Controllers
                 var result = await signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false) ;
                 if (result.Succeeded)
                 {
+                    if (!string.IsNullOrEmpty(returnUrl)&&Url.IsLocalUrl(returnUrl ))
+                        return Redirect(returnUrl);
+                    else 
                     return RedirectToAction("Index", "Home");
                 }
                 

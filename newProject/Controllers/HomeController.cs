@@ -16,14 +16,14 @@ namespace newProject.Controllers
         {
             this._employeeRepository = employeeRepository;
         }
-
+        [AllowAnonymous]
         public ViewResult Index()
         {
             var model = _employeeRepository.GetAllEmployee();
             return View(model);
         }
 
-        
+        [AllowAnonymous]
         public ViewResult Details(int? id)
         {
             Employee employee = _employeeRepository.GetEmployee(id.Value);
@@ -39,14 +39,13 @@ namespace newProject.Controllers
             
             return View(homeDetailsViewModel);
         }
-        
+
         public ViewResult Create()
         {
             return View();
         }
 
         [HttpPost]
-        [Authorize]
         public ActionResult Create(Employee employee)
         {
             if (ModelState.IsValid)
