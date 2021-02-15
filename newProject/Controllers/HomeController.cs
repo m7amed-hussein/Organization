@@ -55,7 +55,7 @@ namespace newProject.Controllers
                     return RedirectToAction("Details",e.Id);
 
                 }
-                catch(Exception e)
+                catch(Exception)
                 {
                     return View();
                 }

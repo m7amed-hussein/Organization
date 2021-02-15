@@ -1,5 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Mvc;
+using newProject.Utilities;
 
 namespace newProject.Models
 {
@@ -7,6 +9,9 @@ namespace newProject.Models
     {
         [Required]
         [EmailAddress]
+        [Remote(action:"IsEmail",controller:"account")]
+        [ValidEmailDomanAttributes(allowedDomain:"m.com"
+            ,ErrorMessage = "Domail Name must be :m.com")]
         public string Email { get; set; }
 
 
@@ -19,5 +24,8 @@ namespace newProject.Models
         [Display(Name="Confirm Password")]
         [Compare("Password",ErrorMessage ="The password missmach")]
         public string ConfirmPassword { get; set; }
+
+
+        public string City { get; set; }
     }
 }

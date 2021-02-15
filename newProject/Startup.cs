@@ -38,7 +38,7 @@ namespace newProject
             {
                 options.UseSqlServer(Configuration.GetConnectionString("SqlCon"));
             });
-            services.AddIdentity<IdentityUser, IdentityRole>(options=>
+            services.AddIdentity<ApplicationClass, IdentityRole>(options=>
             {
                 options.Password.RequiredLength = 8;
                 options.Password.RequireUppercase = false;

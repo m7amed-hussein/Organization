@@ -13,11 +13,11 @@ namespace newProject.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly UserManager<IdentityUser> userManager;
-        private readonly SignInManager<IdentityUser> signInManager;
+        private readonly UserManager<ApplicationClass> userManager;
+        private readonly SignInManager<ApplicationClass> signInManager;
 
-        public AccountController(UserManager<IdentityUser> userManager,
-            SignInManager<IdentityUser> signInManager)
+        public AccountController(UserManager<ApplicationClass> userManager,
+            SignInManager<ApplicationClass> signInManager)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
@@ -57,7 +57,11 @@ namespace newProject.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new IdentityUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationClass {
+                    UserName = model.Email,
+                    Email = model.Email,
+                    city = model.City
+                };
                 var result = await userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
