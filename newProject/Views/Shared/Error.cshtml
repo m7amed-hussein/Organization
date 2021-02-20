@@ -1,1 +1,9 @@
-﻿<h3>An Error occured while proceessing please contact us for more informations</h3>
+﻿@if (ViewBag.ErrorMessage == null)
+{
+    <h3>An Error occured while proceessing please contact us for more informations</h3>
+}
+else
+{
+    <h1>@ViewBag.ErrorTitle</h1>
+    <h3>@ViewBag.ErrorMessage</h3>
+}

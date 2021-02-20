@@ -34,6 +34,12 @@ namespace newProject
                 option.Filters.Add(new AuthorizeFilter(policy));
             }
                 );
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("DeleteRolePolicy",
+                    policy => policy.RequireClaim("Delete Role"));
+            }
+            );
             services.AddDbContext<AppDbContext>(options =>
             {
                 options.UseSqlServer(Configuration.GetConnectionString("SqlCon"));
